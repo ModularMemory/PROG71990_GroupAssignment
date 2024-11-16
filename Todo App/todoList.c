@@ -12,7 +12,7 @@ bool addTodoItem(ptodo_list_t* list, todo_item_t item) {
 
     todo_list_t* newNode = (todo_list_t*)malloc(sizeof(todo_list_t));
     if (!newNode) {
-        fprintf(stderr, "Failed to allocate new todo list node.");
+        fprintf(stderr, "Failed to allocate new todo list node.\n");
         return false;
     }
 
