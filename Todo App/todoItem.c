@@ -6,31 +6,34 @@
 #include <stdlib.h>
 #include <string.h>
 
-todo_item_t* createTodoItem() {
-    todo_item_t* item = (todo_item_t*)calloc(1, sizeof(todo_item_t));
-    if (!item) {
-        fprintf(stderr, "Faile to allocate new todo item.");
-        return NULL;
-    }
+todo_item_t createTodoItem() {
+    todo_item_t item = { 0 };
 
     return item;
 }
 
-void destroyTodoItem(todo_item_t* item) {
-    if (item->name) {
-        free(item->name);
+void destroyTodoItem(todo_item_t item) {
+    if (item.name) {
+        free(item.name);
     }
 
-    if (item->description) {
-        free(item->description);
+    if (item.description) {
+        free(item.description);
     }
+}
 
-    free(item);
+todo_item_t copyTodoItem(const todo_item_t origin) {
+    todo_item_t newItem = createTodoItem();
+
+    changeTodoItemName(&newItem, origin.name);
+    changeTodoItemDescription(&newItem, origin.description);
+
+    return newItem;
 }
 
 bool changeTodoItemName(todo_item_t* item, const char* name) {
     char* newName = cloneString(name);
-    if (!newName) {
+    if (!newName && name) { // If name is NULL then cloneString will return NULL, but we still want to update item.name
         return false;
     }
 
@@ -44,7 +47,7 @@ bool changeTodoItemName(todo_item_t* item, const char* name) {
 
 bool changeTodoItemDescription(todo_item_t* item, const char* description) {
     char* newDesc = cloneString(description);
-    if (!newDesc) {
+    if (!newDesc && newDesc) { // If description is NULL then cloneString will return NULL, but we still want to update item.description
         return false;
     }
 
@@ -60,7 +63,7 @@ bool writeTodoItemToStream(FILE* fp, const todo_item_t item) {
     return false;
 }
 
-todo_item_t* readTodoItemFromStream(FILE* fp) {
+bool readTodoItemFromStream(FILE* fp, todo_item_t* item) {
     return NULL;
 }
 
@@ -70,4 +73,12 @@ const char* getTodoItemName(const todo_item_t* item) {
 
 const char* getTodoItemDescription(const todo_item_t* item) {
     return item->description;
+}
+
+bool compareTodoItems(const todo_item_t a, const todo_item_t b) {
+    if (strcmp(a.name, b.name) != 0) {
+        return false;
+    }
+
+    return strcmp(a.description, b.description) == 0;
 }
