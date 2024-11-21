@@ -127,15 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="loop.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="todoItem.c" />
     <ClCompile Include="todoList.c" />
+    <ClCompile Include="userInput.c" />
     <ClCompile Include="utils.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="loop.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="todoItem.h" />
     <ClInclude Include="todoList.h" />
+    <ClInclude Include="userInput.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

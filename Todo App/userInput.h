@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include <stddef.h>
+int getUserInt(int* userInt);
 
-char* allocateString(size_t length);
+int getUserChar(char* userChar);
 
-char* cloneString(const char* origin);
+char* getUserString(void);

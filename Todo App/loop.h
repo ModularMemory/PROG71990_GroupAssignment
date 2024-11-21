@@ -4,8 +4,8 @@
 
 #include "todoList.h"
 
-int main(void);
+int runLoop(ptodo_list_t* todoList);
 
-void initTodoList(ptodo_list_t* list);
+void printMenu(void);
 
-void saveTodoList(ptodo_list_t list);
+int parseOption(char option, ptodo_list_t* todoList);

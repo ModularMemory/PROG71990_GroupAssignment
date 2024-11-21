@@ -79,6 +79,7 @@ bool copyTodoItemAtIndex(const ptodo_list_t list, size_t index, todo_item_t* ite
 void printTodoList(ptodo_list_t list) {
     ptodo_list_t current = list;
     size_t i = 1;
+
     while (current != NULL) {
         printf("%zu. ", i);
         printTodoItem(current->item);
