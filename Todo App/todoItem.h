@@ -35,3 +35,5 @@ const char* getTodoItemName(const todo_item_t* item);
 const char* getTodoItemDescription(const todo_item_t* item);
 
 bool compareTodoItems(todo_item_t a, todo_item_t b);
+
+void printTodoItem(todo_item_t item);

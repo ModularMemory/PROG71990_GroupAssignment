@@ -59,6 +59,35 @@ bool removeTodoItem(ptodo_list_t* list, todo_item_t item) {
     return false;
 }
 
+bool copyTodoItemAtIndex(const ptodo_list_t list, size_t index, todo_item_t* item) {
+    ptodo_list_t current = list;
+    size_t i = 0;
+
+    while (current != NULL) {
+        if (i == index) {
+            *item = copyTodoItem(current->item);
+            return true;
+        }
+
+        current = current->next;
+        i++;
+    }
+
+    return false;
+}
+
+void printTodoList(ptodo_list_t list) {
+    ptodo_list_t current = list;
+    size_t i = 1;
+    while (current != NULL) {
+        printf("%zu. ", i);
+        printTodoItem(current->item);
+
+        current = current->next;
+        i++;
+    }
+}
+
 void clearTodoList(ptodo_list_t* list) {
     if (!list) {
         return;

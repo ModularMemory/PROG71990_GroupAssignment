@@ -2,4 +2,6 @@
 
 #pragma once
 
+char* allocateString(size_t length);
+
 char* cloneString(const char* origin);

@@ -13,6 +13,10 @@ bool addTodoItem(ptodo_list_t* list, todo_item_t item);
 
 bool removeTodoItem(ptodo_list_t* list, todo_item_t item);
 
+bool copyTodoItemAtIndex(const ptodo_list_t list, size_t index, todo_item_t* item);
+
+void printTodoList(ptodo_list_t list);
+
 void clearTodoList(ptodo_list_t* list);
 
 void destroyTodoList(ptodo_list_t list);

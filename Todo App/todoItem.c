@@ -47,7 +47,7 @@ bool changeTodoItemName(todo_item_t* item, const char* name) {
 
 bool changeTodoItemDescription(todo_item_t* item, const char* description) {
     char* newDesc = cloneString(description);
-    if (!newDesc && newDesc) { // If description is NULL then cloneString will return NULL, but we still want to update item.description
+    if (!newDesc && description) { // If description is NULL then cloneString will return NULL, but we still want to update item.description
         return false;
     }
 
@@ -64,7 +64,7 @@ bool writeTodoItemToStream(FILE* fp, const todo_item_t item) {
 }
 
 bool readTodoItemFromStream(FILE* fp, todo_item_t* item) {
-    return NULL;
+    return false;
 }
 
 const char* getTodoItemName(const todo_item_t* item) {
@@ -81,4 +81,14 @@ bool compareTodoItems(const todo_item_t a, const todo_item_t b) {
     }
 
     return strcmp(a.description, b.description) == 0;
+}
+
+void printTodoItem(todo_item_t item) {
+    printf("%s", item.name);
+
+    if (item.description) {
+        printf(" - %s", item.description);
+    }
+
+    printf("\n");
 }
