@@ -5,27 +5,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static ptodo_list_t createTodoListNode(todo_item_t item) {
+    ptodo_list_t newNode = (ptodo_list_t)malloc(sizeof(todo_list_t));
+    if (!newNode) {
+        fprintf(stderr, "Failed to allocate new todo list node.\n");
+        return NULL;
+    }
+
+    newNode->item = copyTodoItem(item);
+
+    return newNode;
+}
+
 bool addTodoItem(ptodo_list_t* list, todo_item_t item) {
     if (!list) {
         return false;
     }
 
-    todo_list_t* newNode = (todo_list_t*)malloc(sizeof(todo_list_t));
+    ptodo_list_t newNode = createTodoListNode(item);
     if (!newNode) {
-        fprintf(stderr, "Failed to allocate new todo list node.\n");
         return false;
     }
 
-    newNode->item = copyTodoItem(item);
-
-    if (*list == NULL) {
+    ptodo_list_t current = *list;
+    if (current == NULL) {
         // List is empty, new node becomes the head
-        newNode->next = *list;
+        newNode->next = current;
         *list = newNode;
     }
     else {
         // List has contents, add node to the end
-        ptodo_list_t current = *list;
         while (current->next != NULL) {
             current = current->next;
         }
@@ -49,9 +58,9 @@ bool removeTodoItem(ptodo_list_t* list, todo_item_t item) {
     // Check list head
     ptodo_list_t current = *list;
     if (compareTodoItems(current->item, item)) {
-        destroyTodoItem(current->item);
-
         *list = current->next;
+
+        destroyTodoItem(current->item);
         free(current);
         
         return true;
@@ -101,6 +110,26 @@ void printTodoList(ptodo_list_t list) {
     while (current != NULL) {
         printf("%zu. ", i);
         printTodoItem(current->item);
+
+        current = current->next;
+        i++;
+    }
+}
+
+void printTodoListRange(ptodo_list_t list, size_t rangeStart, size_t rangeLength) {
+    ptodo_list_t current = list;
+    size_t i = 0;
+    size_t rangeEnd = rangeStart + rangeLength;
+
+    while (current != NULL) {
+        if (i >= rangeStart) {
+            printf("%zu. ", i);
+            printTodoItem(current->item);
+
+            if (i >= rangeEnd) {
+                break;
+            }
+        }
 
         current = current->next;
         i++;

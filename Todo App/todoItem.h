@@ -10,7 +10,7 @@ typedef struct todo_item {
     char* description;
 } todo_item_t;
 
-todo_item_t createTodoItem();
+todo_item_t createTodoItem(void);
 
 void destroyTodoItem(todo_item_t item);
 

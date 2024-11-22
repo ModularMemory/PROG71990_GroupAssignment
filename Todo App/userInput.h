@@ -4,6 +4,8 @@
 
 int getUserInt(int* userInt);
 
+int getUserSizePair(size_t* userSizeA, size_t* userSizeB);
+
 int getUserChar(char* userChar);
 
 char* getUserString(void);

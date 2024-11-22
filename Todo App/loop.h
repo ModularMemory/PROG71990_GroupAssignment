@@ -11,3 +11,5 @@ void printMenu(void);
 int parseOption(char option, ptodo_list_t* todoList);
 
 int addTask(ptodo_list_t* list);
+
+int printTaskRange(ptodo_list_t list);

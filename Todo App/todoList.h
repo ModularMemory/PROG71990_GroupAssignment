@@ -19,6 +19,8 @@ bool copyTodoItemAtIndex(const ptodo_list_t list, size_t index, todo_item_t* ite
 
 void printTodoList(ptodo_list_t list);
 
+void printTodoListRange(ptodo_list_t list, size_t rangeStart, size_t rangeLength);
+
 void clearTodoList(ptodo_list_t* list);
 
 void destroyTodoList(ptodo_list_t list);

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-todo_item_t createTodoItem() {
+todo_item_t createTodoItem(void) {
     todo_item_t item = { 0 };
 
     return item;

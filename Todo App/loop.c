@@ -51,6 +51,9 @@ int parseOption(char option, ptodo_list_t* todoList) {
     case 'd': // Show a task
         break;
     case 'e': // Show a range of tasks
+        if (printTaskRange(*todoList) != 0) {
+            return 1;
+        }
         break;
     case 'f': // Show all tasks
         printTodoList(*todoList);
@@ -63,7 +66,7 @@ int parseOption(char option, ptodo_list_t* todoList) {
     case 'i': // Quit
         return 1;
     default:
-        fprintf(stderr, "Error: invalid option '%c'\n", option);
+        fprintf(stderr, "Error: Invalid option '%c'\n", option);
         break;
     }
 
@@ -120,5 +123,22 @@ int addTask(ptodo_list_t* todoList) {
     free(name);
     free(desc);
     destroyTodoItem(item);
+    return 0;
+}
+
+int printTaskRange(ptodo_list_t list) {
+    printf("Enter the first and last task numbers you would like to print (a, b): ");
+    size_t first, last;
+    if (getUserSizePair(&first, &last) != 0) {
+        return 1;
+    }
+
+    if (last < first) {
+        fprintf(stderr, "Error: Invalid range.\n");
+        return 0;
+    }
+    
+    printTodoListRange(list, first, last - first);
+
     return 0;
 }

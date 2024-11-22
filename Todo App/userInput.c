@@ -16,7 +16,18 @@ static void flushStdin(void) {
 
 int getUserInt(int* userInt) {
     if (scanf_s("%d", userInt) != 1) {
-        fprintf(stderr, "Error: invalid input.\n");
+        fprintf(stderr, "Error: Invalid input.\n");
+        return 1;
+    }
+
+    flushStdin();
+
+    return 0;
+}
+
+int getUserSizePair(size_t* userSizeA, size_t* userSizeB) {
+    if (scanf_s("%zu%*[, ]%zu", userSizeA, userSizeB) != 2) {
+        fprintf(stderr, "Error: Invalid input.\n");
         return 1;
     }
 
@@ -28,7 +39,7 @@ int getUserInt(int* userInt) {
 int getUserChar(char* userChar) {
     int c = getchar();
     if (c == EOF) {
-        fprintf(stderr, "Error: unexpected EOF.\n");
+        fprintf(stderr, "Error: Unexpected EOF.\n");
         return 1;
     }
 
