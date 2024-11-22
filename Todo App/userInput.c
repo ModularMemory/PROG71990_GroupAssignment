@@ -1,4 +1,4 @@
-// James Payne, Brandon Carr-Ansah, Nifemi Olapoju - prog71990 - group assignment - fall24
+// James Payne - prog71990 - group assignment - fall24
 
 #include "userInput.h"
 #include "utils.h"
