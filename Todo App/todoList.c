@@ -17,8 +17,22 @@ bool addTodoItem(ptodo_list_t* list, todo_item_t item) {
     }
 
     newNode->item = copyTodoItem(item);
-    newNode->next = *list;
-    *list = newNode;
+
+    if (*list == NULL) {
+        // List is empty, new node becomes the head
+        newNode->next = *list;
+        *list = newNode;
+    }
+    else {
+        // List has contents, add node to the end
+        ptodo_list_t current = *list;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+
+        current->next = newNode;
+        newNode->next = NULL;
+    }
 
     return true;
 }
