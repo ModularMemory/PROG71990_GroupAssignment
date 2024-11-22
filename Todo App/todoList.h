@@ -11,6 +11,8 @@ typedef struct todo_list {
 
 bool addTodoItem(ptodo_list_t* list, todo_item_t item);
 
+bool insertTodoitem(ptodo_list_t* list, todo_item_t item, size_t index);
+
 bool removeTodoItem(ptodo_list_t* list, todo_item_t item);
 
 bool copyTodoItemAtIndex(const ptodo_list_t list, size_t index, todo_item_t* item);

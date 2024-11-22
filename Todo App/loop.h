@@ -9,3 +9,5 @@ int runLoop(ptodo_list_t* todoList);
 void printMenu(void);
 
 int parseOption(char option, ptodo_list_t* todoList);
+
+int addTask(ptodo_list_t* list);

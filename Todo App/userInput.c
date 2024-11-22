@@ -1,8 +1,12 @@
 // James Payne, Brandon Carr-Ansah, Nifemi Olapoju - prog71990 - group assignment - fall24
 
 #include "userInput.h"
+#include "utils.h"
 
 #include <stdio.h>
+#include <string.h>
+
+#define STR_BUFFER_LEN 256
 
 // https://stackoverflow.com/a/7898516
 static void flushStdin(void) {
@@ -39,5 +43,12 @@ int getUserChar(char* userChar) {
 }
 
 char* getUserString(void) {
-    return NULL; // TODO
+    char buff[STR_BUFFER_LEN] = { 0 };
+    if (fgets(buff, STR_BUFFER_LEN, stdin) == NULL) {
+        return NULL;
+    }
+
+    buff[strcspn(buff, "\n")] = '\0'; // Trim newline
+
+    return cloneString(buff);
 }

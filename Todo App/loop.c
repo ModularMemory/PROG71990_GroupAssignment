@@ -5,6 +5,8 @@
 
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 int runLoop(ptodo_list_t* todoList) {
     char option;
@@ -40,6 +42,7 @@ void printMenu(void) {
 int parseOption(char option, ptodo_list_t* todoList) {
     switch (tolower(option)) {
     case 'a': // Add a task
+        addTask(todoList);
         break;
     case 'b': // Update a task
         break;
@@ -64,5 +67,58 @@ int parseOption(char option, ptodo_list_t* todoList) {
         break;
     }
 
+    return 0;
+}
+
+int addTask(ptodo_list_t* todoList) {
+    printf("Enter the name of your new task, or '-' to cancel: ");
+    char* name = getUserString();
+    if (!name) {
+        return 1;
+    }
+
+    if (strcmp(name, "-") == 0) {
+        free(name);
+        return 0;
+    }
+
+    printf("Enter the description of your new task, or '-' to cancel: ");
+    char* desc = getUserString();
+    if (!desc) {
+        free(name);
+        return 1;
+    }
+
+    if (strcmp(desc, "-") == 0) {
+        free(name);
+        free(desc);
+        return 0;
+    }
+
+    todo_item_t item = createTodoItem();
+    if (!changeTodoItemName(&item, name)) {
+        free(name);
+        free(desc);
+        destroyTodoItem(item);
+        return 1;
+    }
+
+    if (!changeTodoItemDescription(&item, desc)) {
+        free(name);
+        free(desc);
+        destroyTodoItem(item);
+        return 1;
+    }
+
+    if (!addTodoItem(todoList, item)) {
+        free(name);
+        free(desc);
+        destroyTodoItem(item);
+        return 1;
+    }
+
+    free(name);
+    free(desc);
+    destroyTodoItem(item);
     return 0;
 }

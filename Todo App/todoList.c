@@ -23,6 +23,10 @@ bool addTodoItem(ptodo_list_t* list, todo_item_t item) {
     return true;
 }
 
+bool insertTodoitem(ptodo_list_t* list, todo_item_t item, size_t index) {
+    return false;
+}
+
 bool removeTodoItem(ptodo_list_t* list, todo_item_t item) {
     if (!list || !*list) {
         return false;
