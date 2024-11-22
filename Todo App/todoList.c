@@ -149,6 +149,8 @@ void destroyTodoList(ptodo_list_t list) {
     while (current != NULL) {
         ptodo_list_t temp = current;
         current = temp->next;
+
+        destroyTodoItem(temp->item);
         free(temp);
     }
 }
