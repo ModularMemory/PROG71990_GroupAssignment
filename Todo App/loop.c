@@ -138,7 +138,7 @@ int printTaskRange(ptodo_list_t list) {
         return 0;
     }
     
-    printTodoListRange(list, first, last - first);
+    printTodoListRange(list, first - 1, last - first);
 
     return 0;
 }

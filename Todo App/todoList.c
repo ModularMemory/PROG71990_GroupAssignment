@@ -86,29 +86,28 @@ bool removeTodoItem(ptodo_list_t* list, todo_item_t item) {
     return false;
 }
 
-bool copyTodoItemAtIndex(const ptodo_list_t list, size_t index, todo_item_t* item) {
+todo_item_t* getTodoItemAtIndex(ptodo_list_t list, size_t index) {
     ptodo_list_t current = list;
     size_t i = 0;
 
     while (current != NULL) {
         if (i == index) {
-            *item = copyTodoItem(current->item);
-            return true;
+            return &current->item;
         }
 
         current = current->next;
         i++;
     }
 
-    return false;
+    return NULL;
 }
 
 void printTodoList(ptodo_list_t list) {
     ptodo_list_t current = list;
-    size_t i = 1;
+    size_t i = 0;
 
     while (current != NULL) {
-        printf("%zu. ", i);
+        printf("%zu. ", i + 1);
         printTodoItem(current->item);
 
         current = current->next;
@@ -123,7 +122,7 @@ void printTodoListRange(ptodo_list_t list, size_t rangeStart, size_t rangeLength
 
     while (current != NULL) {
         if (i >= rangeStart) {
-            printf("%zu. ", i);
+            printf("%zu. ", i + 1);
             printTodoItem(current->item);
 
             if (i >= rangeEnd) {

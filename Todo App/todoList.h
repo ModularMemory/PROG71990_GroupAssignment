@@ -15,7 +15,7 @@ bool insertTodoitem(ptodo_list_t* list, todo_item_t item, size_t index);
 
 bool removeTodoItem(ptodo_list_t* list, todo_item_t item);
 
-bool copyTodoItemAtIndex(const ptodo_list_t list, size_t index, todo_item_t* item);
+todo_item_t* getTodoItemAtIndex(ptodo_list_t list, size_t index);
 
 void printTodoList(ptodo_list_t list);
 
