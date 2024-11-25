@@ -99,6 +99,7 @@ int addTask(ptodo_list_t* todoList) {
     }
 
     todo_item_t item = createTodoItem();
+
     if (!changeTodoItemName(&item, name)) {
         free(name);
         free(desc);
@@ -106,22 +107,21 @@ int addTask(ptodo_list_t* todoList) {
         return 1;
     }
 
+    free(name);
+
     if (!changeTodoItemDescription(&item, desc)) {
-        free(name);
         free(desc);
         destroyTodoItem(item);
         return 1;
     }
+
+    free(desc);
 
     if (!addTodoItem(todoList, item)) {
-        free(name);
-        free(desc);
         destroyTodoItem(item);
         return 1;
     }
 
-    free(name);
-    free(desc);
     destroyTodoItem(item);
     return 0;
 }
