@@ -10,11 +10,11 @@
 #include <string.h>
 
 int runLoop(ptodo_list_t* todoList) {
-    char option;
     bool loop = true;
     do {
         printMenu();
 
+        char option;
         if (getUserChar(&option) != 0) {
             continue;
         }
@@ -43,7 +43,9 @@ void printMenu(void) {
 int parseOption(char option, ptodo_list_t* todoList) {
     switch (tolower(option)) {
     case 'a': // Add a task
-        addTask(todoList);
+        if (addTask(todoList) != 0) {
+            return 1;
+        }
         break;
     case 'b': // Update a task
         updateTask(todoList);
