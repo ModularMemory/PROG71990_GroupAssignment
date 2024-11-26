@@ -1,6 +1,6 @@
 // James Payne - prog71990 - group assignment - fall24
-//Brandon - prog71990 - group assignment - fall24
-//Nifemi Olapoju - prog71990 - group assignment - fall24
+// Brandon - prog71990 - group assignment - fall24
+// Nifemi Olapoju - prog71990 - group assignment - fall24
 
 #pragma once
 
@@ -17,7 +17,7 @@ bool updateTodoItem(ptodo_list_t* list, const char* taskName, const char* newNam
 
 bool deleteTodoItem(ptodo_list_t* list, const char* taskName);
 
-bool insertTodoitem(ptodo_list_t* list, todo_item_t item, size_t index);
+bool insertTodoItem(ptodo_list_t* list, todo_item_t item, size_t index);
 
 bool removeTodoItem(ptodo_list_t* list, todo_item_t item);
 

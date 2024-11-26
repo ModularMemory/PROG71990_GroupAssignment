@@ -1,6 +1,6 @@
 // James Payne - prog71990 - group assignment - fall24
-//Brandon - prog71990 - group assignment - fall24
-//Nifemi Olapoju - prog71990 - group assignment - fall24
+// Brandon - prog71990 - group assignment - fall24
+// Nifemi Olapoju - prog71990 - group assignment - fall24
 
 
 #include "todoList.h"
@@ -100,7 +100,7 @@ bool deleteTodoItem(ptodo_list_t* list, const char* taskName) {
     return false;
 }
 
-bool insertTodoitem(ptodo_list_t* list, todo_item_t item, size_t index) {
+bool insertTodoItem(ptodo_list_t* list, todo_item_t item, size_t index) {
     return false;
 }
 
