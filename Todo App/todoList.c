@@ -1,5 +1,7 @@
 // James Payne - prog71990 - group assignment - fall24
 //Brandon - prog71990 - group assignment - fall24
+//Nifemi Olapoju - prog71990 - group assignment - fall24
+
 
 #include "todoList.h"
 
@@ -206,3 +208,25 @@ void destroyTodoList(ptodo_list_t list) {
         free(temp);
     }
 }
+
+bool searchTodoItem(ptodo_list_t list, const char* name) {
+    if (!list || !name) {
+        return false;
+    }
+
+    ptodo_list_t current = list;
+    size_t index = 0;
+
+    while (current != NULL) {
+        if (strcmp(current->item.name, name) == 0) {
+            printf("Task found at position %zu:\n", index + 1);
+            printTodoItem(current->item);
+            return true;
+        }
+        current = current->next;
+        index++;
+    }
+
+    return false;
+}
+

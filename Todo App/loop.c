@@ -1,5 +1,7 @@
 // James Payne - prog71990 - group assignment - fall24
 //Brandon - prog71990 - group assignment - fall24
+//Nifemi Olapoju - prog71990 - group assignment - fall24
+
 
 #include "loop.h"
 #include "userInput.h"
@@ -64,6 +66,18 @@ int parseOption(char option, ptodo_list_t* todoList) {
         printTodoList(*todoList);
         break;
     case 'g': // Search for a task
+
+        printf("Enter the name of the task to search: ");
+        char* searchName = getUserString();
+        if (!searchName) {
+            fprintf(stderr, "Failed to read the task name.\n");
+            break;
+        }
+        if (!searchTodoItem(*todoList, searchName)) {
+            printf("Task '%s' not found.\n", searchName);
+        }
+        free(searchName);
+
         break;
     case 'h': // Clear all tasks
         clearTodoList(todoList);

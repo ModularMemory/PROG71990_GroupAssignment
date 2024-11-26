@@ -1,5 +1,6 @@
 // James Payne - prog71990 - group assignment - fall24
 //Brandon - prog71990 - group assignment - fall24
+//Nifemi Olapoju - prog71990 - group assignment - fall24
 
 #pragma once
 
@@ -29,3 +30,5 @@ void printTodoListRange(ptodo_list_t list, size_t rangeStart, size_t rangeLength
 void clearTodoList(ptodo_list_t* list);
 
 void destroyTodoList(ptodo_list_t list);
+
+bool searchTodoItem(ptodo_list_t list, const char* name);
