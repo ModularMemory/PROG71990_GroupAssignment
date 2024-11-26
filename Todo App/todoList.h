@@ -1,4 +1,5 @@
 // James Payne - prog71990 - group assignment - fall24
+//Brandon - prog71990 - group assignment - fall24
 
 #pragma once
 
@@ -10,6 +11,10 @@ typedef struct todo_list {
 } todo_list_t, *ptodo_list_t;
 
 bool addTodoItem(ptodo_list_t* list, todo_item_t item);
+
+bool updateTodoItem(ptodo_list_t* list, const char* taskName, const char* newName, const char* newDescription);
+
+bool deleteTodoItem(ptodo_list_t* list, const char* taskName);
 
 bool insertTodoitem(ptodo_list_t* list, todo_item_t item, size_t index);
 

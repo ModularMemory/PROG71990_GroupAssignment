@@ -1,4 +1,5 @@
 // James Payne - prog71990 - group assignment - fall24
+//Brandon - prog71990 - group assignment - fall24
 
 #include "loop.h"
 #include "userInput.h"
@@ -45,8 +46,10 @@ int parseOption(char option, ptodo_list_t* todoList) {
         addTask(todoList);
         break;
     case 'b': // Update a task
+        updateTask(todoList);
         break;
     case 'c': // Delete a task
+        deleteTask(todoList);
         break;
     case 'd': // Show a task
         break;
@@ -123,6 +126,42 @@ int addTask(ptodo_list_t* todoList) {
     }
 
     destroyTodoItem(item);
+    return 0;
+}
+
+static int updateTask(ptodo_list_t* todoList) {
+    printf("Enter the name of the task to update: ");
+    char* taskName = getUserString();
+    printf("Enter the new name: ");
+    char* newName = getUserString();
+    printf("Enter the new description: ");
+    char* newDesc = getUserString();
+
+    if (updateTodoItem(todoList, taskName, newName, newDesc)) {
+        printf("Task updated successfully.\n");
+    }
+    else {
+        fprintf(stderr, "Failed to update the task.\n");
+    }
+
+    free(taskName);
+    free(newName);
+    free(newDesc);
+    return 0;
+}
+
+static int deleteTask(ptodo_list_t* todoList) {
+    printf("Enter the name of the task to delete: ");
+    char* taskName = getUserString();
+
+    if (deleteTodoItem(todoList, taskName)) {
+        printf("Task deleted successfully.\n");
+    }
+    else {
+        fprintf(stderr, "Failed to delete the task.\n");
+    }
+
+    free(taskName);
     return 0;
 }
 

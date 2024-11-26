@@ -1,4 +1,5 @@
 // James Payne - prog71990 - group assignment - fall24
+//Brandon - prog71990 - group assignment - fall24
 
 #include "todoList.h"
 
@@ -44,6 +45,57 @@ bool addTodoItem(ptodo_list_t* list, todo_item_t item) {
     }
 
     return true;
+}
+
+bool updateTodoItem(ptodo_list_t* list, const char* taskName, const char* newName, const char* newDescription) {
+    if (!list || !*list || !taskName || !newName || !newDescription) {
+        return false;
+    }
+
+    ptodo_list_t current = *list;
+
+    while (current != NULL) {
+        if (strcmp(current->item.name, taskName) == 0) {
+            if (!changeTodoItemName(&current->item, newName)) {
+                return false;
+            }
+            if (!changeTodoItemDescription(&current->item, newDescription)) {
+                return false;
+            }
+            return true;
+        }
+        current = current->next;
+    }
+
+    fprintf(stderr, "Error: No task found with the name '%s'.\n", taskName);
+    return false;
+}
+
+bool deleteTodoItem(ptodo_list_t* list, const char* taskName) {
+    if (!list || !*list || !taskName) {
+        return false;
+    }
+
+    ptodo_list_t current = *list, prev = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->item.name, taskName) == 0) {
+            if (prev == NULL) {
+                *list = current->next; //Deleting head
+            }
+            else {
+                prev->next = current->next;
+            }
+            destroyTodoItem(current->item);
+            free(current);
+            return true;
+        }
+        prev = current;
+        current = current->next;
+    }
+
+    fprintf(stderr, "Error: No task found with the name '%s'.\n", taskName);
+    return false;
 }
 
 bool insertTodoitem(ptodo_list_t* list, todo_item_t item, size_t index) {
