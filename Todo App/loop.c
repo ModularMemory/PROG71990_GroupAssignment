@@ -55,6 +55,19 @@ int parseOption(char option, ptodo_list_t* todoList) {
         deleteTask(todoList);
         break;
     case 'd': // Show a task
+        printf("Enter the name of the task to show: ");
+        char* taskName = getUserString();
+        if (!taskName) {
+            fprintf(stderr, "Failed to read the task name.\n");
+            break;
+        }
+
+        if (!searchTodoItem(*todoList, taskName)) {
+            printf("Task '%s' not found.\n", taskName);
+        }
+
+        free(taskName);
+
         break;
     case 'e': // Show a range of tasks
         if (printTaskRange(*todoList) != 0) {

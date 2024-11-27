@@ -229,4 +229,3 @@ bool searchTodoItem(ptodo_list_t list, const char* name) {
 
     return false;
 }
-
