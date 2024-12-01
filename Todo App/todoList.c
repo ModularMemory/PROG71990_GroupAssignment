@@ -50,19 +50,41 @@ bool addTodoItem(ptodo_list_t* list, todo_item_t item) {
     return true;
 }
 
-bool updateTodoItem(ptodo_list_t* list, const char* taskName, const char* newName, const char* newDescription) {
-    if (!list || !*list || !taskName || !newName || !newDescription) {
+bool updateTodoItemByIndex(ptodo_list_t* list, size_t index, const char* newName, const char* newDescription) {
+    if (!list || !*list || !newName || !newDescription) {
+        return false;
+    }
+
+    ptodo_list_t current = *list;
+    size_t i = 0;
+
+    while (current != NULL) {
+        if (i == index) {
+            if (!changeTodoItemName(&current->item, newName) ||
+                !changeTodoItemDescription(&current->item, newDescription)) {
+                return false;
+            }
+            return true;
+        }
+        current = current->next;
+        i++;
+    }
+
+    fprintf(stderr, "Error: No task at index %zu\n", index);
+    return false;
+}
+
+bool updateTodoItemByName(ptodo_list_t* list, const char* name, const char* newName, const char* newDescription) {
+    if (!list || !*list || !name || !newName || !newDescription) {
         return false;
     }
 
     ptodo_list_t current = *list;
 
     while (current != NULL) {
-        if (strcmp(current->item.name, taskName) == 0) {
-            if (!changeTodoItemName(&current->item, newName)) {
-                return false;
-            }
-            if (!changeTodoItemDescription(&current->item, newDescription)) {
+        if (strcmp(current->item.name, name) == 0) {
+            if (!changeTodoItemName(&current->item, newName) ||
+                !changeTodoItemDescription(&current->item, newDescription)) {
                 return false;
             }
             return true;
@@ -70,19 +92,48 @@ bool updateTodoItem(ptodo_list_t* list, const char* taskName, const char* newNam
         current = current->next;
     }
 
-    fprintf(stderr, "Error: No task found with the name '%s'.\n", taskName);
+    fprintf(stderr, "Error: No task with name '%s'\n", name);
     return false;
 }
 
-bool deleteTodoItem(ptodo_list_t* list, const char* taskName) {
-    if (!list || !*list || !taskName) {
+bool deleteTodoItemByIndex(ptodo_list_t* list, size_t index) {
+    if (!list || !*list) {
+        return false;
+    }
+
+    ptodo_list_t current = *list, prev = NULL;
+    size_t i = 0;
+
+    while (current != NULL) {
+        if (i == index) {
+            if (prev == NULL) {
+                *list = current->next; //Deleting head
+            }
+            else {
+                prev->next = current->next;
+            }
+            destroyTodoItem(current->item);
+            free(current);
+            return true;
+        }
+        prev = current;
+        current = current->next;
+        i++;
+    }
+
+    fprintf(stderr, "Error: No task at index %zu\n", index);
+    return false;
+}
+
+bool deleteTodoItemByName(ptodo_list_t* list, const char* name) {
+    if (!list || !*list || !name) {
         return false;
     }
 
     ptodo_list_t current = *list, prev = NULL;
 
     while (current != NULL) {
-        if (strcmp(current->item.name, taskName) == 0) {
+        if (strcmp(current->item.name, name) == 0) {
             if (prev == NULL) {
                 *list = current->next; //Deleting head
             }
@@ -97,7 +148,7 @@ bool deleteTodoItem(ptodo_list_t* list, const char* taskName) {
         current = current->next;
     }
 
-    fprintf(stderr, "Error: No task found with the name '%s'.\n", taskName);
+    fprintf(stderr, "Error: No task with name '%s'\n", name);
     return false;
 }
 

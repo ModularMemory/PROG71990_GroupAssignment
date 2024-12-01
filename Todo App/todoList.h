@@ -15,9 +15,11 @@ typedef struct todo_list {
 
 bool addTodoItem(ptodo_list_t* list, todo_item_t item);
 
-bool updateTodoItem(ptodo_list_t* list, const char* taskName, const char* newName, const char* newDescription);
+bool updateTodoItemByIndex(ptodo_list_t* list, size_t index, const char* newName, const char* newDescription);
+bool updateTodoItemByName(ptodo_list_t* list, const char* name, const char* newName, const char* newDescription);
 
-bool deleteTodoItem(ptodo_list_t* list, const char* taskName);
+bool deleteTodoItemByIndex(ptodo_list_t* list, size_t index);
+bool deleteTodoItemByName(ptodo_list_t* list, const char* name);
 
 bool insertTodoItem(ptodo_list_t* list, todo_item_t item, size_t index);
 
