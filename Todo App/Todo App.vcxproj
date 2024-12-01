@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="loop.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="saveFile.c" />
     <ClCompile Include="todoItem.c" />
     <ClCompile Include="todoList.c" />
     <ClCompile Include="userInput.c" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="loop.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="saveFile.h" />
     <ClInclude Include="todoItem.h" />
     <ClInclude Include="todoList.h" />
     <ClInclude Include="userInput.h" />

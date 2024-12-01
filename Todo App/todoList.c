@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static ptodo_list_t createTodoListNode(todo_item_t item) {
     ptodo_list_t newNode = (ptodo_list_t)malloc(sizeof(todo_list_t));
@@ -228,4 +229,56 @@ bool searchTodoItem(ptodo_list_t list, const char* name) {
     }
 
     return false;
+}
+
+size_t getListLength(ptodo_list_t list) {
+    size_t len = 0;
+    for (ptodo_list_t current = list; current != NULL; current = current->next) {
+        len++;
+    }
+
+    return len;
+}
+
+bool writeTodoListToStream(FILE* fp, ptodo_list_t list) {
+    size_t listLen = getListLength(list);
+    if (fprintf(fp, "%zu\n", listLen) == 0) {
+        fprintf(stderr, "Error: Failed to write list length.\n");
+        return false;
+    }
+
+    for (ptodo_list_t current = list; current != NULL; current = current->next) {
+        if (!writeTodoItemToStream(fp, current->item)) {
+            fprintf(stderr, "Error: Failed to write todo item.\n");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool readTodoListFromStream(FILE* fp, ptodo_list_t* list) {
+    size_t listLen = 0;
+    if (fscanf_s(fp, "%zu\n", &listLen) != 1) {
+        fprintf(stderr, "Error: Failed to read list length.\n");
+        return false;
+    }
+
+    for (size_t i = 0; i < listLen; i++) {
+        todo_item_t item;
+        if (!readTodoItemFromStream(fp, &item)) {
+            fprintf(stderr, "Error: Failed to read todo item.\n");
+            return false;
+        }
+
+        if (!addTodoItem(list, item)) {
+            fprintf(stderr, "Error: Failed to add todo item.\n");
+            destroyTodoItem(item);
+            return false;
+        }
+
+        destroyTodoItem(item);
+    }
+
+    return true;
 }

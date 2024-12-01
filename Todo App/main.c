@@ -3,6 +3,7 @@
 #include "main.h"
 #include "loop.h"
 #include "todoList.h"
+#include "saveFile.h"
 
 #include <stdio.h>
 
@@ -22,9 +23,24 @@ int main(void) {
 }
 
 void initTodoList(ptodo_list_t* todoList) {
-    // TODO: Check if save file exists. If it does, load todo list from save file.
+    if (!saveFileExists()) {
+        return;
+    }
+
+    printf("Loading list from file...\n");
+
+    if (!loadListFromFile(todoList)) {
+        fprintf(stderr, "Error: Failed to read list from file.\n");
+        *todoList = NULL;
+    }
+
+    printf("\n");
 }
 
 void saveTodoList(ptodo_list_t todoList) {
-    // TODO: Save todo list to file.
+    printf("Saving list to file...");
+
+    if (!saveListToFile(todoList)) {
+        fprintf(stderr, "Error: Failed to save list to file.\n");
+    }
 }

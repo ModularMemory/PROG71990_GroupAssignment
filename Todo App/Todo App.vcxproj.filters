@@ -33,6 +33,9 @@
     <ClCompile Include="userInput.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="saveFile.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="userInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="saveFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

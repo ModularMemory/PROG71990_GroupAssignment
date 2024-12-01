@@ -6,6 +6,8 @@
 
 #include "todoItem.h"
 
+#include <stdio.h>
+
 typedef struct todo_list {
     todo_item_t item;
     struct todo_list* next;
@@ -32,3 +34,9 @@ void clearTodoList(ptodo_list_t* list);
 void destroyTodoList(ptodo_list_t list);
 
 bool searchTodoItem(ptodo_list_t list, const char* name);
+
+size_t getListLength(ptodo_list_t list);
+
+bool writeTodoListToStream(FILE* fp, ptodo_list_t list);
+
+bool readTodoListFromStream(FILE* fp, ptodo_list_t* list);

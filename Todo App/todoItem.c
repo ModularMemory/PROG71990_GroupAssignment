@@ -60,11 +60,52 @@ bool changeTodoItemDescription(todo_item_t* item, const char* description) {
 }
 
 bool writeTodoItemToStream(FILE* fp, const todo_item_t item) {
-    return false;
+    if (!writeStringToStream(fp, item.name)) {
+        fprintf(stderr, "Error: Failed to write todo item name.\n");
+    }
+
+    if (!writeStringToStream(fp, item.description)) {
+        fprintf(stderr, "Error: Failed to write todo item description.\n");
+    }
+
+    return true;
 }
 
 bool readTodoItemFromStream(FILE* fp, todo_item_t* item) {
-    return false;
+    char* name = readStringFromStream(fp);
+    if (!name) {
+        fprintf(stderr, "Error: Failed to read todo item name.\n");
+        return false;
+    }
+
+    char* desc = readStringFromStream(fp);
+    if (!desc) {
+        fprintf(stderr, "Error: Failed to read todo item description.\n");
+        free(name);
+        return false;
+    }
+
+    *item = createTodoItem();
+
+    if (!changeTodoItemName(item, name)) {
+        fprintf(stderr, "Error: Failed to set todo item name.\n");
+        free(name);
+        free(desc);
+        destroyTodoItem(*item);
+        return false;
+    }
+
+    free(name);
+
+    if (!changeTodoItemDescription(item, desc)) {
+        fprintf(stderr, "Error: Failed to set todo item description.\n");
+        free(desc);
+        destroyTodoItem(*item);
+        return false;
+    }
+
+    free(desc);
+    return true;
 }
 
 const char* getTodoItemName(const todo_item_t* item) {
