@@ -55,7 +55,7 @@ int parseOption(char option, ptodo_list_t* todoList) {
         deleteTask(todoList);
         break;
     case 'd': // Show a task
-        printf("Enter the name of the task to show: ");
+      /*  printf("Enter the name of the task to show: ");
         char* taskName = getUserString();
         if (!taskName) {
             fprintf(stderr, "Failed to read the task name.\n");
@@ -66,9 +66,14 @@ int parseOption(char option, ptodo_list_t* todoList) {
             printf("Task '%s' not found.\n", taskName);
         }
 
-        free(taskName);
+        free(taskName);*/
 
+        if (showTaskByName(todoList) != 0) {
+            return 1;
+        }
         break;
+
+        
     case 'e': // Show a range of tasks
         if (printTaskRange(*todoList) != 0) {
             return 1;
@@ -259,3 +264,25 @@ int printTaskRange(ptodo_list_t list) {
 
     return 0;
 }
+
+int showTaskByName(ptodo_list_t* todoList) {
+    if (!todoList || !*todoList) {
+        fprintf(stderr, "Error: todoList is NULL or empty.\n");
+        return 1;
+    }
+
+    printf("Enter the name of the task to show: ");
+    char* taskName = getUserString();
+    if (!taskName) {
+        fprintf(stderr, "Failed to read the task name.\n");
+        return 1;
+    }
+
+    if (!searchTodoItem(*todoList, taskName)) {
+        printf("Task '%s' not found.\n", taskName);
+    }
+
+    free(taskName);
+    return 0;
+}
+
