@@ -49,78 +49,10 @@ int parseOption(char option, ptodo_list_t* todoList) {
         }
         break;
     case 'b': // Update a task
-        printf("Do you want to update by index or name? (type 'index' or 'name' to choose): ");
-        char updateChoice;
-        if (getUserChar(&updateChoice) == 0) {
-            if (updateChoice == 'i') {
-                printf("Enter the index of the task to update: ");
-                size_t index;
-                if (getUserSizePair(&index, NULL) == 0) {
-                    printf("Enter the new name: ");
-                    char* newName = getUserString();
-                    printf("Enter the new description: ");
-                    char* newDesc = getUserString();
-
-                    if (updateTodoItemByIndex(todoList, index - 1, newName, newDesc)) {
-                        printf("Task updated successfully.\n");
-                    }
-                    else {
-                        fprintf(stderr, "Failed to update the task.\n");
-                    }
-
-                    free(newName);
-                    free(newDesc);
-                }
-            }
-            else if (updateChoice == 'n') {
-                printf("Enter the name of the task to update: ");
-                char* taskName = getUserString();
-                printf("Enter the new name: ");
-                char* newName = getUserString();
-                printf("Enter the new description: ");
-                char* newDesc = getUserString();
-
-                if (updateTodoItemByName(todoList, taskName, newName, newDesc)) {
-                    printf("Task updated successfully.\n");
-                }
-                else {
-                    fprintf(stderr, "Failed to update the task.\n");
-                }
-
-                free(taskName);
-                free(newName);
-                free(newDesc);
-            }
-        }
+        updateTask(todoList);
         break;
     case 'c': // Delete a task
-        printf("Do you want to delete by index or name? (type 'index' or 'name' to choose): ");
-        char deleteChoice;
-        if (getUserChar(&deleteChoice) == 0) {
-            if (deleteChoice == 'i') {
-                printf("Enter the index of the task to delete: ");
-                size_t index;
-                if (getUserSizePair(&index, NULL) == 0) {
-                    if (deleteTodoItemByIndex(todoList, index - 1)) {
-                        printf("Task deleted successfully.\n");
-                    }
-                    else {
-                        fprintf(stderr, "Failed to delete the task.\n");
-                    }
-                }
-            }
-            else if (deleteChoice == 'n') {
-                printf("Enter the name of the task to delete: ");
-                char* taskName = getUserString();
-                if (deleteTodoItemByName(todoList, taskName)) {
-                    printf("Task deleted successfully.\n");
-                }
-                else {
-                    fprintf(stderr, "Failed to delete the task.\n");
-                }
-                free(taskName);
-            }
-        }
+        deleteTask(todoList);
         break;
     case 'd': // Show a task
         printf("Enter the name of the task to show: ");
@@ -223,6 +155,92 @@ int addTask(ptodo_list_t* todoList) {
 
     destroyTodoItem(item);
     return 0;
+}
+
+void updateTask(ptodo_list_t* todoList) {
+    if (!todoList) {
+        fprintf(stderr, "Error: todoList is NULL.\n");
+        return;
+    }
+
+    printf("Do you want to update by index or name? (type 'index' or 'name' to choose): ");
+    char updateChoice;
+    if (getUserChar(&updateChoice) == 0) {
+        if (updateChoice == 'i') {
+            printf("Enter the index of the task to update: ");
+            size_t index;
+            if (getUserSizePair(&index, NULL) == 0) {
+                printf("Enter the new name: ");
+                char* newName = getUserString();
+                printf("Enter the new description: ");
+                char* newDesc = getUserString();
+
+                if (updateTodoItemByIndex(todoList, index - 1, newName, newDesc)) {
+                    printf("Task updated successfully.\n");
+                }
+                else {
+                    fprintf(stderr, "Failed to update the task.\n");
+                }
+
+                free(newName);
+                free(newDesc);
+            }
+        }
+        else if (updateChoice == 'n') {
+            printf("Enter the name of the task to update: ");
+            char* taskName = getUserString();
+            printf("Enter the new name: ");
+            char* newName = getUserString();
+            printf("Enter the new description: ");
+            char* newDesc = getUserString();
+
+            if (updateTodoItemByName(todoList, taskName, newName, newDesc)) {
+                printf("Task updated successfully.\n");
+            }
+            else {
+                fprintf(stderr, "Failed to update the task.\n");
+            }
+
+            free(taskName);
+            free(newName);
+            free(newDesc);
+        }
+    }
+}
+
+void deleteTask(ptodo_list_t* todoList) {
+    if (!todoList) {
+        fprintf(stderr, "Error: todoList is NULL.\n");
+        return;
+    }
+
+    printf("Do you want to delete by index or name? (type 'index' or 'name' to choose): ");
+    char deleteChoice;
+    if (getUserChar(&deleteChoice) == 0) {
+        if (deleteChoice == 'i') {
+            printf("Enter the index of the task to delete: ");
+            size_t index;
+            if (getUserSizePair(&index, NULL) == 0) {
+                if (deleteTodoItemByIndex(todoList, index - 1)) {
+                    printf("Task deleted successfully.\n");
+                }
+                else {
+                    fprintf(stderr, "Failed to delete the task.\n");
+                }
+            }
+        }
+        else if (deleteChoice == 'n') {
+            printf("Enter the name of the task to delete: ");
+            char* taskName = getUserString();
+            if (deleteTodoItemByName(todoList, taskName)) {
+                printf("Task deleted successfully.\n");
+            }
+            else {
+                fprintf(stderr, "Failed to delete the task.\n");
+            }
+            free(taskName);
+        }
+    }
 }
 
 int printTaskRange(ptodo_list_t list) {

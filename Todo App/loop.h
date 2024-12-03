@@ -14,5 +14,9 @@ int parseOption(char option, ptodo_list_t* todoList);
 
 int addTask(ptodo_list_t* list);
 
+void updateTask(ptodo_list_t* todoList);
+
+void deleteTask(ptodo_list_t* todoList);
+
 int printTaskRange(ptodo_list_t list);
 
