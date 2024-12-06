@@ -1,0 +1,11 @@
+- add a new task - James
+- delete an existing task - Brandon
+- update an existing task - Brandon
+- display single task - Nifemi
+- display range task - James
+- display all task - James
+- search for task - Nifemi
+- friendly/easy to use UI (or menu system) - James
+- save accumulated data to disk - James
+- load accumulated data from disk - James
+- basic todo item and linked list ADTs - James
