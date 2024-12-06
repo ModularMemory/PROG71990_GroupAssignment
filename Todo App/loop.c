@@ -55,25 +55,10 @@ int parseOption(char option, ptodo_list_t* todoList) {
         deleteTask(todoList);
         break;
     case 'd': // Show a task
-      /*  printf("Enter the name of the task to show: ");
-        char* taskName = getUserString();
-        if (!taskName) {
-            fprintf(stderr, "Failed to read the task name.\n");
-            break;
-        }
-
-        if (!searchTodoItem(*todoList, taskName)) {
-            printf("Task '%s' not found.\n", taskName);
-        }
-
-        free(taskName);*/
-
-        if (showTaskByName(todoList) != 0) {
+        if (showTaskByName(*todoList) != 0) {
             return 1;
         }
-        break;
-
-        
+        break;        
     case 'e': // Show a range of tasks
         if (printTaskRange(*todoList) != 0) {
             return 1;
@@ -219,6 +204,11 @@ void deleteTask(ptodo_list_t* todoList) {
         return;
     }
 
+    if (!*todoList) {
+        printf("Nothing to remove, todo list is empty.\n");
+        return;
+    }
+
     printf("Do you want to delete by index or name? (type 'index' or 'name' to choose): ");
     char deleteChoice;
     if (getUserChar(&deleteChoice) == 0) {
@@ -265,10 +255,10 @@ int printTaskRange(ptodo_list_t list) {
     return 0;
 }
 
-int showTaskByName(ptodo_list_t* todoList) {
-    if (!todoList || !*todoList) {
-        fprintf(stderr, "Error: todoList is NULL or empty.\n");
-        return 1;
+int showTaskByName(ptodo_list_t todoList) {
+    if (!todoList) {
+        printf("Nothing to show, todo list is empty.\n");
+        return 0;
     }
 
     printf("Enter the name of the task to show: ");
@@ -278,7 +268,7 @@ int showTaskByName(ptodo_list_t* todoList) {
         return 1;
     }
 
-    if (!searchTodoItem(*todoList, taskName)) {
+    if (!searchTodoItem(todoList, taskName)) {
         printf("Task '%s' not found.\n", taskName);
     }
 

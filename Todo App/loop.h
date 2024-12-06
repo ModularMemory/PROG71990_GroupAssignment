@@ -20,6 +20,6 @@ void deleteTask(ptodo_list_t* todoList);
 
 int printTaskRange(ptodo_list_t list);
 
-int showTaskByName(ptodo_list_t* todoList);
+int showTaskByName(ptodo_list_t todoList);
 
 
