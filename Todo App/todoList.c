@@ -82,7 +82,7 @@ bool updateTodoItemByName(ptodo_list_t* list, const char* name, const char* newN
     ptodo_list_t current = *list;
 
     while (current != NULL) {
-        if (strcmp(current->item.name, name) == 0) {
+        if (strcmp(getTodoItemName(&current->item), name) == 0) {
             if (!changeTodoItemName(&current->item, newName) ||
                 !changeTodoItemDescription(&current->item, newDescription)) {
                 return false;
@@ -133,7 +133,7 @@ bool deleteTodoItemByName(ptodo_list_t* list, const char* name) {
     ptodo_list_t current = *list, prev = NULL;
 
     while (current != NULL) {
-        if (strcmp(current->item.name, name) == 0) {
+        if (strcmp(getTodoItemName(&current->item), name) == 0) {
             if (prev == NULL) {
                 *list = current->next; //Deleting head
             }
@@ -270,7 +270,7 @@ bool searchTodoItem(ptodo_list_t list, const char* name) {
     size_t index = 0;
 
     while (current != NULL) {
-        if (strcmp(current->item.name, name) == 0) {
+        if (strcmp(getTodoItemName(&current->item), name) == 0) {
             printf("Task found at position %zu:\n", index + 1);
             printTodoItem(current->item);
             return true;
