@@ -6,6 +6,8 @@
 
 int getUserInt(int* userInt);
 
+int getUserSize(size_t* userSize);
+
 int getUserSizePair(size_t* userSizeA, size_t* userSizeB);
 
 int getUserChar(char* userChar);

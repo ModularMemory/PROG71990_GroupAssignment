@@ -174,7 +174,7 @@ void updateTask(ptodo_list_t* todoList) {
         if (updateChoice == 'i') {
             printf("Enter the index of the task to update: ");
             size_t index;
-            if (getUserSizePair(&index, NULL) == 0) {
+            if (getUserSize(&index) == 0) {
                 printf("Enter the new name: ");
                 char* newName = getUserString();
                 printf("Enter the new description: ");
@@ -225,7 +225,7 @@ void deleteTask(ptodo_list_t* todoList) {
         if (deleteChoice == 'i') {
             printf("Enter the index of the task to delete: ");
             size_t index;
-            if (getUserSizePair(&index, NULL) == 0) {
+            if (getUserSize(&index) == 0) {
                 if (deleteTodoItemByIndex(todoList, index - 1)) {
                     printf("Task deleted successfully.\n");
                 }

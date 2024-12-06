@@ -25,6 +25,17 @@ int getUserInt(int* userInt) {
     return 0;
 }
 
+int getUserSize(size_t* userSize) {
+    if (scanf_s("%zu", userSize) != 1) {
+        fprintf(stderr, "Error: Invalid input.\n");
+        return 1;
+    }
+
+    flushStdin();
+
+    return 0;
+}
+
 int getUserSizePair(size_t* userSizeA, size_t* userSizeB) {
     if (scanf_s("%zu%*[, ]%zu", userSizeA, userSizeB) != 2) {
         fprintf(stderr, "Error: Invalid input.\n");
